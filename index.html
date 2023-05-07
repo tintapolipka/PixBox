@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixelart SVG maker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <section id="titlebox">
+        <img src="./pixbox_grey.svg" alt="Pix-box" />
+      </section>
+      <button id="newPicActivator">Hide</button>
+      <section id="newPic">
+        <div>
+          Set dimensons in <br />
+          number of pixels:
+          <br />
+          width:
+          <div id="valueX">5</div>
+          <button class="plusminus" onclick="setX(-1)">-</button>
+
+          <button class="plusminus" onclick="setX(1)">+</button><br />
+          height:
+          <div id="valueY">5</div>
+          <button class="plusminus" onclick="setY(-1)">-</button>
+
+          <button class="plusminus" onclick="setY(1)">+</button>
+        </div>
+        <div id="palettePicker">
+          Choose a palette:<br /><input
+            type="radio"
+            name="palette"
+            id="basicPal"
+            value="basicPal"
+            checked
+            class="palselect"
+          />Basic colors <br /><input
+            type="radio"
+            name="palette"
+            id="commodore64"
+            value="commodore64"
+            class="palselect"
+          />Commodore64 colors
+          <br />
+        </div>
+        <div>
+          Use a picture as reference (optional);
+          <br />
+
+          From file:<br /><input
+            type="file"
+            id="bgFile"
+            accept=".jpg, .jpeg, .png"
+          />
+          <br />
+          From link:
+          <br />
+          <input
+            type="url"
+            name="bgImgUrl"
+            id="bgImgUrl"
+            placeholder="Copy the url here..."
+          />
+        </div>
+        <div class="centered">
+          <button
+            onclick="newPicGenerator(document.querySelector('input.palselect:checked').value)"
+          >
+            New Pixelart
+          </button>
+        </div>
+      </section>
+    </header>
+    <main>
+      <div id="mainFrame">
+        <p>Click on the boxes to color them!</p>
+        <div id="tileDivSection"></div>
+      </div>
+      <div class="tools">
+        <div id="colorPicker"></div>
+        <div>
+          <p>Current:</p>
+          <div id="pickedColor"></div>
+        </div>
+
+        <div id="preview-container">
+          <p>Preview:</p>
+          <div id="smallPic"></div>
+        </div>
+      </div>
+      <div class="save-and-load">
+        <form onsubmit="download(this['name'].value + '.svg', myText())">
+          <legend>Name your new SVG file!</legend>
+          <input type="text" name="name" value="title" required />
+
+          <input type="submit" value="Download my SVG!" />
+        </form>
+
+        <section id="load-container">
+          Load a PixBox SVG:
+          <input type="file" id="inputSVGText" onchange="loadingSVG()" />
+          <button id="loaderBtn" onclick="loader()">Load</button>
+        </section>
+      </div>
+      <script src="./palettes.js"></script>
+      <script src="./app.js"></script>
+    </main>
+  </body>
+</html>
