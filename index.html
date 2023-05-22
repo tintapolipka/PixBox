@@ -12,22 +12,21 @@
       <section id="titlebox">
         <img src="./pixbox_grey.svg" alt="Pix-box" />
       </section>
-      <button id="newPicActivator">Hide</button>
-      <section id="newPic">
+      <button id="newPicActivator" class="newPicActivator fixed-to-top-right">NEW</button>
+      <button id="download-dialog-btn" onclick="showThisDialog()" class="newPicActivator fixed-to-top-right-second">Export</button>
+      <button id="load-dialog-btn" onclick="showLoadDialog()" class="newPicActivator fixed-to-top-right-third">LOAD</button>
+      <section id="newPic" class="newPic fixed-to-top-right position-absolute left_toggle">
+        <h2>CREATE NEW PIXELART</h2>
         <div>
           Set dimensons in <br />
           number of pixels:
           <br />
           width:
-          <div id="valueX">5</div>
-          <button class="plusminus" onclick="setX(-1)">-</button>
-
-          <button class="plusminus" onclick="setX(1)">+</button><br />
+          <input type="number" min="5" max="35" step="1" id="width-of-svg" value="5">
+         
           height:
-          <div id="valueY">5</div>
-          <button class="plusminus" onclick="setY(-1)">-</button>
-
-          <button class="plusminus" onclick="setY(1)">+</button>
+          <input type="number" min="5" max="35" step="1" id="height-of-svg" value="5">
+          
         </div>
         <div id="palettePicker">
           Choose a palette:<br /><input
@@ -64,10 +63,12 @@
             id="bgImgUrl"
             placeholder="Copy the url here..."
           />
+          <button onclick="bgImported('preview-of-bg')">Show reference</button>
+          <div id="preview-of-bg"></div>
         </div>
         <div class="centered">
           <button
-            onclick="newPicGenerator(document.querySelector('input.palselect:checked').value)"
+            onclick="rowAndCoulmnInput(); newPicGenerator(document.querySelector('input.palselect:checked').value)"
           >
             New Pixelart
           </button>
@@ -75,10 +76,7 @@
       </section>
     </header>
     <main>
-      <div id="mainFrame">
-        <p>Click on the boxes to color them!</p>
-        <div id="tileDivSection"></div>
-      </div>
+     
       <div class="tools">
         <div id="colorPicker"></div>
         <div>
@@ -91,20 +89,26 @@
           <div id="smallPic"></div>
         </div>
       </div>
-      <div class="save-and-load">
-        <form onsubmit="download(this['name'].value + '.svg', myText())">
-          <legend>Name your new SVG file!</legend>
-          <input type="text" name="name" value="title" required />
 
-          <input type="submit" value="Download my SVG!" />
-        </form>
-
-        <section id="load-container">
-          Load a PixBox SVG:
+      <div id="mainFrame">
+        <p>Click on the boxes to color them!</p>
+        <div id="tileDivSection"></div>
+      </div>
+      <dialog id="save-and-load" class="newPic fixed-to-top-right-second">
+        <h2>EXPORT SVG</h2>
+        <div >
+          <p>Name your new SVG file!</p>
+          <input id="svgName" type="text" value="title"/>
+          <button onclick="download(document.getElementById('svgName').value + '.svg', myText())" >Download my SVG!</button>
+        </div>
+      </dialog>
+<dialog id="load-a-pixbox-svg" class="newPic">
+        <div id="load-container" >
+          <h2>LOAD A PixBox SVG</h2>
           <input type="file" id="inputSVGText" onchange="loadingSVG()" />
           <button id="loaderBtn" onclick="loader()">Load</button>
-        </section>
-      </div>
+        </div>
+      </dialog>
       <script src="./palettes.js"></script>
       <script src="./app.js"></script>
     </main>
